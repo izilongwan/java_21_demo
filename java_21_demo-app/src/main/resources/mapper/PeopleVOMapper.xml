@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java_21_demo.app.mapper.PeopleVOMapper">
+
+    <resultMap id="PeopleVOMap" type="com.java_21_demo.app.domain.vo.PeopleVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="email" property="email"/>
+        <result column="favorite_color" property="favoriteColor"/>
+    </resultMap>
+
+    <sql id="sql">
+        SELECT t_people.id, name, email, t_color.id favorite_color
+        FROM t_people
+        JOIN t_color ON t_people.color_id = t_color.id
+    </sql>
+
+    <select id="selectList" resultMap="PeopleVOMap">
+        <include refid="sql"/>
+    </select>
+
+    <select id="selectById" parameterType="long" resultMap="PeopleVOMap">
+        <include refid="sql"/>
+        WHERE t_people.id = #{id}
+    </select>
+</mapper>

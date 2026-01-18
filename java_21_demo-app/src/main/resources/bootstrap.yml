@@ -1,0 +1,43 @@
+spring:
+    application:
+        name: demo-app
+    cloud:
+        config:
+            # 本地配置优先
+            override-none: true
+        nacos:
+            server-addr: localhost:8848
+            # Nacos 配置中心
+            config:
+                namespace: 762252bd-d5f0-409f-9a14-b6f9b68b5c25
+                group: DEFAULT_GROUP
+                file-extension: yml
+                # 共享配置（可选）
+                shared-configs:
+                    - data-id: mysql.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
+                    - data-id: redis.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
+                    - data-id: mybatis-plus.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
+                extension-configs:
+                    - data-id: do.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
+                    - data-id: web-config.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
+            # Nacos 服务发现
+            discovery:
+                namespace: 762252bd-d5f0-409f-9a14-b6f9b68b5c25
+                group: DEFAULT_GROUP
+    profiles:
+        active: dev
+
+# 1. shared-configs (common-db.yml)      ← 最低优先级
+# 2. extension-configs (common.yml)      ← 中等优先级
+# 3. 应用自身配置 (java-21-demo-app.yml) ← 更高优先级
+# 4. 本地 application.yml                ← 最高优先级（因为你设置了 override-none: true）
