@@ -1,0 +1,32 @@
+web-config:
+    knife4j:
+        # API 文档标题
+        title: Java 21 Demo API 接口文档
+        # API 文档描述
+        description: 基于 Spring Boot 3.3.7 的 RESTful API 接口文档
+        # API 版本
+        version: 0.0.1-SNAPSHOT
+        # 联系人信息
+        contact:
+            name: 开发团队
+            email: dev@example.com
+            url: https://example.com
+        # 许可证信息
+        license:
+            name: Apache 2.0
+            url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+# Knife4j 增强配置
+springdoc:
+    api-docs:
+        # 是否启用 API 文档
+        enabled: true
+        # API 文档路径
+        path: /v3/api-docs
+    swagger-ui:
+        # Swagger UI 路径
+        path: /swagger-ui.html
+        # 是否启用 Swagger UI
+        enabled: true
+    # 扫描的包路径 (在具体应用模块中配置)
+    # packages-to-scan: com.java_21_demo.app.controller
