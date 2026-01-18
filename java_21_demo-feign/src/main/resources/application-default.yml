@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true  # 默认启用失败重试，可被外部覆盖
