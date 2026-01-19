@@ -5,13 +5,11 @@ import java.util.List;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.env.Environment;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.esotericsoftware.minlog.Log;
 import com.java_21_demo.app.aspectj.DoAspecj;
 import com.java_21_demo.app.aspectj.DosAspectj;
 import com.java_21_demo.app.domain.entity.People;
