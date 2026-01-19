@@ -1,0 +1,28 @@
+spring:
+    application:
+        name: demo-app-rabbit-consumer
+    cloud:
+        config:
+            # 本地配置优先
+            override-none: true
+        nacos:
+            server-addr: localhost:8848
+            username: nacos
+            password: nacos
+            # Nacos 配置中心
+            config:
+                namespace: 762252bd-d5f0-409f-9a14-b6f9b68b5c25
+                group: DEFAULT_GROUP
+                file-extension: yml
+                # 共享配置（可选）
+                shared-configs:
+                    - data-id: rabbit-mq.yml
+                      group: DEFAULT_GROUP
+                    - data-id: mq-property.yml
+                      group: DEFAULT_GROUP
+            # Nacos 服务发现
+            discovery:
+                namespace: 762252bd-d5f0-409f-9a14-b6f9b68b5c25
+                group: DEFAULT_GROUP
+    profiles:
+        active: dev

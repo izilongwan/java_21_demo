@@ -17,6 +17,7 @@
 		<module>java_21_demo-feign</module>
 		<module>java_21_demo-web-common</module>
 		<module>java_21_demo-db-common</module>
+		<module>java_21_demo-rabbit-consumer</module>
 	</modules>
 
 	<properties>
