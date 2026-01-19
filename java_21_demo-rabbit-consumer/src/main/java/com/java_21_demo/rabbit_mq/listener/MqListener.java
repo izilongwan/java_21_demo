@@ -22,11 +22,23 @@ public class MqListener {
 		log.info("Received order message: {}", payload);
 	}
 
+	@RabbitListener(queues = "demo.app.queue.order")
+	public void orderMore(Message message) {
+		String payload = new String(message.getBody());
+		log.info("Received orderMore message: {}", payload);
+	}
+
 	@RabbitListener(bindings = {@QueueBinding(value = @Queue("demo.app.queue.order2"),
 		exchange = @Exchange(name = "demo.app.exchange.order", type = ExchangeTypes.TOPIC),
 		key = {"demo.app.routing.key.common.*"})})
 	public void order2(Message message) {
 		log.info("Received order2 message: {}", message);
+	}
+
+	@RabbitListener(queues = "demo.app.queue.order2")
+	public void order2More(Message message) throws InterruptedException {
+		Thread.sleep(500);
+		log.info("Received order2More message: {}", message);
 	}
 
 	@RabbitListener(bindings = {@QueueBinding(value = @Queue("demo.app.queue.pay"),
@@ -39,7 +51,7 @@ public class MqListener {
 
 	@RabbitListener(bindings = {@QueueBinding(value = @Queue("demo.app.queue.pay2"),
 		exchange = @Exchange(name = "demo.app.exchange.pay", type = ExchangeTypes.TOPIC),
-		key = {"demo.app.routing.key.common.*"})})
+		key = {"demo.app.routing.key.pay.common.*"})})
 	public void pay2(Object obj) {
 		log.info("Received pay2 message: {}", obj);
 	}
