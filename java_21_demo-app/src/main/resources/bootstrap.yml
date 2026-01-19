@@ -25,6 +25,12 @@ spring:
                     - data-id: mybatis-plus.yml
                       group: DEFAULT_GROUP
                       refresh: true
+                    - data-id: rabbit-mq.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
+                    - data-id: mq-property.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
                 extension-configs:
                     - data-id: do.yml
                       group: DEFAULT_GROUP
