@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.java_21_demo.app.enums.ColorEnum;
 import com.java_21_demo.database.entity.BaseEntity;
-import com.java_21_demo.web.aspect.anno.PrivacyEncrypt;
+import com.java_21_demo.web.aspect.PrivacyEncrypt;
 import com.java_21_demo.web.enums.PrivacyType;
 
 import lombok.Data;
