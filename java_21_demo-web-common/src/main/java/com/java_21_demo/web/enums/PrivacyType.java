@@ -10,6 +10,7 @@ import com.java_21_demo.web.aspect.anno.PrivacySerializer;
  * 每种类型实现了 apply 方法，用于对输入的隐私数据进行相应的处理。
  * - PHONE: 对手机号进行脱敏处理，显示前三位和后四位，中间四位用星号替代。
  * - ID_CARD: 对身份证号进行脱敏处理，显示前六位和后四位，中间八位用星号替代。
+ * - EMAIL: 对电子邮箱进行脱敏处理，显示@符号前的第一个字符和@符号后的域名部分，中间字符用星号替代。
  * - AES: 对数据进行 AES 加密处理，返回加密后的字符串。
  */
 public enum PrivacyType implements PrivacySerializer {
