@@ -2,6 +2,7 @@ package com.java_21_demo.rabbit_mq.listener;
 
 import org.springframework.amqp.core.ExchangeTypes;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.Argument;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
@@ -54,5 +55,22 @@ public class MqListener {
 		key = {"demo.app.routing.key.pay.common.*"})})
 	public void pay2(Object obj) {
 		log.info("Received pay2 message: {}", obj);
+	}
+
+	@RabbitListener(bindings = {@QueueBinding(
+		value = @Queue(name = "demo.app.queue.lazy", arguments = {@Argument(name = "x-queue-mode", value = "lazy")}),
+		exchange = @Exchange(name = "demo.app.exchange.lazy", type = ExchangeTypes.TOPIC),
+		key = {"demo.app.routing.key.lazy.#"})})
+	public void lazy() {
+
+	}
+
+	@RabbitListener(bindings = {@QueueBinding(
+		value = @Queue(name = "demo.app.queue.deadletter",
+			arguments = {@Argument(name = "x-queue-mode", value = "lazy")}),
+		exchange = @Exchange(name = "demo.app.exchange.deadletter", type = ExchangeTypes.TOPIC),
+		key = {"demo.app.routing.key.deadletter.#"})})
+	public void deadletter() {
+
 	}
 }
