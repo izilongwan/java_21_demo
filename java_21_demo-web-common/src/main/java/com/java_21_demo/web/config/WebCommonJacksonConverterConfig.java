@@ -1,6 +1,7 @@
 package com.java_21_demo.web.config;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +38,7 @@ public class WebCommonJacksonConverterConfig {
                 .serializerByType(LocalDate.class, new LocalDateSerializer(DATE_PATTERN))
                 .serializerByType(Long.TYPE, LongJsonSerializer.instance)
                 .serializerByType(Long.class, LongJsonSerializer.instance)
+                .serializerByType(BigInteger.class, LongJsonSerializer.instance)
                 /*
                  * 反序列化内容
                  * String -> Object
