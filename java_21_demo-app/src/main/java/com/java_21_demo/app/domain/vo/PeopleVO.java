@@ -1,23 +1,28 @@
 package com.java_21_demo.app.domain.vo;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.java_21_demo.app.domain.entity.People;
 import com.java_21_demo.app.enums.ColorEnum;
+import com.java_21_demo.web.aspect.anno.PrivacyEncrypt;
+import com.java_21_demo.web.enums.PrivacyType;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
-@SuperBuilder
+@Builder
 @Data
-@EqualsAndHashCode(callSuper = false)
-@ToString(callSuper = true)
 @NoArgsConstructor
-public class PeopleVO extends People {
+@AllArgsConstructor
+public class PeopleVO {
+    Long id;
+    String name;
+
+    @PrivacyEncrypt(PrivacyType.EMAIL)
+    String email;
+
+    ColorEnum favoriteColorEnum;
+
     ColorEnum favoriteColor;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     Integer colorId;
 }
