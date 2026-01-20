@@ -1,4 +1,4 @@
-package com.java_21_demo.web.aspect.anno;
+package com.java_21_demo.web.interfaces;
 
 @FunctionalInterface
 public interface PrivacySerializer {

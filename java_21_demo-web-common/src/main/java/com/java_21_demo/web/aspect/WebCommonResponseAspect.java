@@ -1,4 +1,4 @@
-package com.java_21_demo.web.aspect.anno;
+package com.java_21_demo.web.aspect;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.METHOD })
-public @interface WebResponseAnno {
+@Target({ElementType.TYPE, ElementType.METHOD})
+public @interface WebCommonResponseAspect {
     boolean value() default true;
 }

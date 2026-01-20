@@ -19,7 +19,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 @Configuration
-public class MicoAppCommonJacksonConverterConfig {
+public class WebCommonJacksonConverterConfig {
     private static final DateTimeFormatter DATE_TIME_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -28,22 +28,22 @@ public class MicoAppCommonJacksonConverterConfig {
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
         return builder -> {
             builder
-                    /*
-                     * 序列化内容
-                     * LocalDateTime -> String
-                     * 服务端返回给客户端内容
-                     */
-                    .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DATE_TIME_PATTERN))
-                    .serializerByType(LocalDate.class, new LocalDateSerializer(DATE_PATTERN))
-                    .serializerByType(Long.TYPE, LongJsonSerializer.instance)
-                    .serializerByType(Long.class, LongJsonSerializer.instance)
-                    /*
-                     * 反序列化内容
-                     * String -> Object
-                     * 客户端传入服务端数据
-                     */
-                    .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DATE_TIME_PATTERN))
-                    .deserializerByType(LocalDate.class, new LocalDateDeserializer(DATE_PATTERN));
+                /*
+                 * 序列化内容
+                 * LocalDateTime -> String
+                 * 服务端返回给客户端内容
+                 */
+                .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DATE_TIME_PATTERN))
+                .serializerByType(LocalDate.class, new LocalDateSerializer(DATE_PATTERN))
+                .serializerByType(Long.TYPE, LongJsonSerializer.instance)
+                .serializerByType(Long.class, LongJsonSerializer.instance)
+                /*
+                 * 反序列化内容
+                 * String -> Object
+                 * 客户端传入服务端数据
+                 */
+                .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DATE_TIME_PATTERN))
+                .deserializerByType(LocalDate.class, new LocalDateDeserializer(DATE_PATTERN));
         };
     }
 

@@ -1,4 +1,4 @@
-package com.java_21_demo.web.aspect.anno;
+package com.java_21_demo.web.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.java_21_demo.web.enums.PrivacyType;
+import com.java_21_demo.web.interfaces.PrivacySerializer;
 import com.java_21_demo.web.util.PrivacyEncryptSerializer;
 
 /**

@@ -23,32 +23,32 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java_21_demo.web.aspect.anno.WebResponseAnno;
+import com.java_21_demo.web.aspect.WebCommonResponseAspect;
 import com.java_21_demo.web.config.property.WebResultBodyProperty;
 import com.java_21_demo.web.domain.vo.ExceptionVO;
 import com.java_21_demo.web.domain.vo.RVO;
 import com.java_21_demo.web.util.HttpRequestUtil;
 
 @RestControllerAdvice
-public class MicoAppCommonWebResponseAdvice implements ResponseBodyAdvice<Object> {
+public class WebCommonResponseAdvice implements ResponseBodyAdvice<Object> {
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
     private final WebResultBodyProperty properties;
 
-    public MicoAppCommonWebResponseAdvice(WebResultBodyProperty properties) {
+    public WebCommonResponseAdvice(WebResultBodyProperty properties) {
         this.properties = properties;
     }
 
     static final List<Class<? extends Annotation>> RESPONSETYPES_LIST = Stream
-            .of(ResponseBody.class, ExceptionHandler.class)
-            .collect(Collectors.toList());
+        .of(ResponseBody.class, ExceptionHandler.class)
+        .collect(Collectors.toList());
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         Type genericResponseType = returnType.getGenericParameterType();
 
         if (genericResponseType instanceof Class<?>) {
-            if ((Class<?>) genericResponseType == ExceptionVO.class) {
+            if ((Class<?>)genericResponseType == ExceptionVO.class) {
                 return true;
             }
         }
@@ -60,24 +60,24 @@ public class MicoAppCommonWebResponseAdvice implements ResponseBodyAdvice<Object
             return true;
         }
 
-        WebResponseAnno webResponseAnno = returnType.getMethodAnnotation(WebResponseAnno.class);
+        WebCommonResponseAspect webResponseAnno = returnType.getMethodAnnotation(WebCommonResponseAspect.class);
         if (Objects.nonNull(webResponseAnno)) {
             return webResponseAnno.value();
         }
 
-        webResponseAnno = returnType.getContainingClass().getAnnotation(WebResponseAnno.class);
+        webResponseAnno = returnType.getContainingClass().getAnnotation(WebCommonResponseAspect.class);
 
         if (Objects.nonNull(webResponseAnno)) {
             return webResponseAnno.value();
         }
 
         Boolean b = Optional
-                .ofNullable(Stream.of(returnType.getMethodAnnotations()).anyMatch(RESPONSETYPES_LIST::contains))
-                .map(o -> o ? o : null)
-                .orElse(Optional
-                        .ofNullable(returnType.getContainingClass().getDeclaredAnnotation(RestController.class))
-                        .map(Objects::nonNull)
-                        .orElse(false));
+            .ofNullable(Stream.of(returnType.getMethodAnnotations()).anyMatch(RESPONSETYPES_LIST::contains))
+            .map(o -> o ? o : null)
+            .orElse(Optional
+                .ofNullable(returnType.getContainingClass().getDeclaredAnnotation(RestController.class))
+                .map(Objects::nonNull)
+                .orElse(false));
 
         return b && properties.basePackage().stream().anyMatch(o -> name.startsWith(o));
     }
@@ -85,13 +85,13 @@ public class MicoAppCommonWebResponseAdvice implements ResponseBodyAdvice<Object
     @Override
     @SuppressWarnings("unchecked")
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-            Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-            ServerHttpResponse response) {
+        Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+        ServerHttpResponse response) {
 
-        Long timecost = HttpRequestUtil.getAttribute("timecost").map(o -> o).map(o -> (Long) o).orElse(0L);
+        Long timecost = HttpRequestUtil.getAttribute("timecost").map(o -> o).map(o -> (Long)o).orElse(0L);
 
         if (body instanceof ExceptionVO) {
-            ExceptionVO evo = (ExceptionVO) body;
+            ExceptionVO evo = (ExceptionVO)body;
             HttpStatus status = evo.getStatus();
             if (Objects.nonNull(status)) {
                 response.setStatusCode(status);
@@ -100,7 +100,7 @@ public class MicoAppCommonWebResponseAdvice implements ResponseBodyAdvice<Object
         }
 
         if (body instanceof Exception) {
-            return RVO.error(null, ((Exception) body).getMessage());
+            return RVO.error(null, ((Exception)body).getMessage());
         }
 
         Long total = HttpRequestUtil.getAttributeVoTotal().orElse(-1L);
@@ -108,7 +108,7 @@ public class MicoAppCommonWebResponseAdvice implements ResponseBodyAdvice<Object
         // 防止重复包裹的问题出现
         if (body instanceof RVO) {
             // 设置timecost
-            return ((RVO<Object>) body).toBuilder().timecost(timecost).total(total).build();
+            return ((RVO<Object>)body).toBuilder().timecost(timecost).total(total).build();
         }
 
         RVO<Object> result = RVO.success(body, timecost, total);

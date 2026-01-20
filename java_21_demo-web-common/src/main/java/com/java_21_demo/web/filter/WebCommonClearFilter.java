@@ -21,11 +21,11 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @Component
 @Order(Ordered.LOWEST_PRECEDENCE)
-public class MicoAppCommonClearFilter extends OncePerRequestFilter {
+public class WebCommonClearFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         try {
             // 继续执行过滤链
             filterChain.doFilter(request, response);

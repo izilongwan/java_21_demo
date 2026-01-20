@@ -10,16 +10,16 @@ import jakarta.validation.Validator;
 
 @Configuration
 @ConditionalOnProperty(name = "validator.fail-fast", havingValue = "true")
-public class MicoAppCommonValidatorConfig {
+public class CommonValidatorConfig {
 
     @Bean
     public Validator validator() {
         // Validation.byProvider(HibernateValidator.class);
         return Validation.byDefaultProvider()
-                .configure()
-                .addProperty("hibernate.validator.fail_fast", "true")
-                .buildValidatorFactory()
-                .getValidator();
+            .configure()
+            .addProperty("hibernate.validator.fail_fast", "true")
+            .buildValidatorFactory()
+            .getValidator();
     }
 
     @Bean

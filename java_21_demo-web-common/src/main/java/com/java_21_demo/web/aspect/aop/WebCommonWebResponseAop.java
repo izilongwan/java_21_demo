@@ -1,4 +1,4 @@
-package com.java_21_demo.web.aspect;
+package com.java_21_demo.web.aspect.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,7 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Aspect
 @Configuration
-public class MicoAppCommonWebResponseAspect {
+public class WebCommonWebResponseAop {
     @Pointcut("execution(public * *..controller.*Controller.*(..))")
     public void pointcut() {
 
@@ -22,7 +22,7 @@ public class MicoAppCommonWebResponseAspect {
         Object proceed = proceedingJoinPoint.proceed();
         Long timeTs = System.currentTimeMillis() - startTs;
 
-        ServletRequestAttributes attrs = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
+        ServletRequestAttributes attrs = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes());
 
         attrs.setAttribute("timecost", timeTs, 0);
 

@@ -10,9 +10,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
-import com.java_21_demo.web.aspect.anno.PrivacySerializer;
-import com.java_21_demo.web.aspect.anno.PrivacyEncrypt;
-import com.java_21_demo.web.enums.PrivacyType;
+import com.java_21_demo.web.aspect.PrivacyEncrypt;
+import com.java_21_demo.web.interfaces.PrivacySerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

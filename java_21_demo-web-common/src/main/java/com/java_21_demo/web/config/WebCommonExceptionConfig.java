@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RestControllerAdvice
 @RequiredArgsConstructor
 @Configuration
-public class MicoAppCommonWebExceptionConfig {
+public class WebCommonExceptionConfig {
 
     private final ExceptionProperty exceptionStatusClassBo;
 
@@ -44,12 +44,12 @@ public class MicoAppCommonWebExceptionConfig {
         });
 
         return esc.stream()
-                .findAny()
-                .map(o -> new ExceptionVO(
-                        Optional.ofNullable(o.message()).orElse(e.getMessage()),
-                        Optional.ofNullable(o.status()).map(HttpStatus::valueOf).orElse(HttpStatus.OK),
-                        o.code()))
-                .orElse(ExceptionVO.error(e.getMessage()));
+            .findAny()
+            .map(o -> new ExceptionVO(
+                Optional.ofNullable(o.message()).orElse(e.getMessage()),
+                Optional.ofNullable(o.status()).map(HttpStatus::valueOf).orElse(HttpStatus.OK),
+                o.code()))
+            .orElse(ExceptionVO.error(e.getMessage()));
     }
 
     @ExceptionHandler(ExceptionVO.class)
@@ -61,19 +61,19 @@ public class MicoAppCommonWebExceptionConfig {
      * <1> 处理 form data方式调用接口校验失败抛出的异常
      * <2> 处理 json 请求体调用接口校验失败抛出的异常
      */
-    @ExceptionHandler({ BindException.class, MethodArgumentNotValidException.class })
+    @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class})
     public ExceptionVO handleException(BindException e) {
         List<InputParamVO> list = e.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(o -> {
-                    String field = o.getObjectName().concat(".").concat(o.getField());
-                    String rule = o.getDefaultMessage();
-                    String message = String.format("%s: %s", field, rule);
+            .getFieldErrors()
+            .stream()
+            .map(o -> {
+                String field = o.getObjectName().concat(".").concat(o.getField());
+                String rule = o.getDefaultMessage();
+                String message = String.format("%s: %s", field, rule);
 
-                    return InputParamVO.builder().field(field).rule(rule).message(message).build();
-                })
-                .collect(Collectors.toList());
+                return InputParamVO.builder().field(field).rule(rule).message(message).build();
+            })
+            .collect(Collectors.toList());
 
         String message = list.stream().map(InputParamVO::getMessage).collect(Collectors.joining("; "));
         return ExceptionVO.error(list, message, MessageEnum.INPUT_INVALID_PARAM.getCode());
@@ -82,14 +82,14 @@ public class MicoAppCommonWebExceptionConfig {
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ExceptionVO handleException(HandlerMethodValidationException e) {
         List<InputParamVO> list = e.getAllValidationResults()
-                .stream()
-                .flatMap(res -> res.getResolvableErrors().stream().map(error -> {
-                    String field = res.getMethodParameter().getParameterName();
-                    String rule = error.getDefaultMessage();
-                    String message = String.format("%s: %s", field, rule);
-                    return InputParamVO.builder().field(field).rule(rule).message(message).build();
-                }))
-                .collect(Collectors.toList());
+            .stream()
+            .flatMap(res -> res.getResolvableErrors().stream().map(error -> {
+                String field = res.getMethodParameter().getParameterName();
+                String rule = error.getDefaultMessage();
+                String message = String.format("%s: %s", field, rule);
+                return InputParamVO.builder().field(field).rule(rule).message(message).build();
+            }))
+            .collect(Collectors.toList());
 
         String message = list.stream().map(InputParamVO::getMessage).collect(Collectors.joining("; "));
         return ExceptionVO.error(list, message, MessageEnum.INPUT_INVALID_PARAM.getCode());

@@ -2,7 +2,7 @@ package com.java_21_demo.web.enums;
 
 import java.util.Objects;
 
-import com.java_21_demo.web.aspect.anno.PrivacySerializer;
+import com.java_21_demo.web.interfaces.PrivacySerializer;
 
 /**
  * 隐私数据处理类型枚举
