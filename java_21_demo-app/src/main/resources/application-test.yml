@@ -1,0 +1,5 @@
+management:
+    tracing:
+        sampling:
+            # 测试环境下设置采样率为 100%，确保必出 ID
+            probability: 1.0
