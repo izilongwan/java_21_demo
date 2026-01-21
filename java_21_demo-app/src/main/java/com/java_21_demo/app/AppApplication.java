@@ -5,13 +5,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @ServletComponentScan
 @ConfigurationPropertiesScan
+@MapperScan({"com.java_21_demo.app.mapper"})
+@EnableFeignClients("com.java_21_demo.feign")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@MapperScan({ "com.java_21_demo.app.mapper" })
 public class AppApplication {
 
 	public static void main(String[] args) {

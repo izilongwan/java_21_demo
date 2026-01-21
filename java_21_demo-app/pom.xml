@@ -76,6 +76,11 @@
 			<groupId>com</groupId>
 			<artifactId>java_21_demo-db-common</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com</groupId>
+			<artifactId>java_21_demo-feign</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>
