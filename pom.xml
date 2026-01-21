@@ -46,6 +46,7 @@
 		<fastjson.version>2.0.51</fastjson.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+		<feign-hc5.version>13.1</feign-hc5.version>
 
 		<!-- Project versions -->
 		<common-snapshot.version>0.0.1-SNAPSHOT</common-snapshot.version>
@@ -85,6 +86,12 @@
 			<dependency>
 				<groupId>com</groupId>
 				<artifactId>java_21_demo-db-common</artifactId>
+				<version>${common-snapshot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com</groupId>
+				<artifactId>java_21_demo-feign</artifactId>
 				<version>${common-snapshot.version}</version>
 			</dependency>
 
@@ -139,8 +146,22 @@
 				<artifactId>mapstruct</artifactId>
 				<version>${org.mapstruct.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>io.github.openfeign</groupId>
+				<artifactId>feign-hc5</artifactId>
+				<version>${feign-hc5.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

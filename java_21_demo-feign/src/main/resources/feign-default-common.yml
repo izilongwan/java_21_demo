@@ -1,0 +1,29 @@
+spring:
+    threads:
+        virtual:
+            enabled: true
+    cloud:
+        openfeign:
+            circuitbreaker:
+                enabled: true
+            httpclient:
+                hc5:
+                    enabled: true
+            client:
+                config:
+                    default:
+                        connect-timeout: 5000
+                        read-timeout: 10000
+                        logger-level: basic
+
+resilience4j:
+    circuitbreaker:
+        configs:
+            default:
+                sliding-window-size: 10
+                # 允许在虚拟线程中进行重试或等待
+    timelimiter:
+        configs:
+            default:
+                # 这个时间必须大于等于 Feign 的 read-timeout
+                timeout-duration: 12000
