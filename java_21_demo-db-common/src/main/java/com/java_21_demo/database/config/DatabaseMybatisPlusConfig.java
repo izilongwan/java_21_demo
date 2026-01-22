@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.java_21_demo.database.entity.BaseEntity;
-import com.java_21_demo.database.util.MicoAppDatabaseThreadLocalUtil;
+import com.java_21_demo.database.util.DatabaseThreadLocalUtil;
 
 @Configuration
 public class DatabaseMybatisPlusConfig implements MetaObjectHandler {
@@ -29,8 +29,8 @@ public class DatabaseMybatisPlusConfig implements MetaObjectHandler {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void insertFill(MetaObject metaObject) {
-		HashMap<String, String> map = MicoAppDatabaseThreadLocalUtil.get(
-				MicoAppDatabaseThreadLocalUtil.SYSTEM_KEY,
+		HashMap<String, String> map = DatabaseThreadLocalUtil.get(
+				DatabaseThreadLocalUtil.SYSTEM_KEY,
 				HashMap.class);
 		Optional.ofNullable(map)
 				.map(m -> m.get(BaseEntity.Fields.createUser))
@@ -46,8 +46,8 @@ public class DatabaseMybatisPlusConfig implements MetaObjectHandler {
 	@Override
 	public void updateFill(MetaObject metaObject) {
 
-		Optional.ofNullable(MicoAppDatabaseThreadLocalUtil.get(
-				MicoAppDatabaseThreadLocalUtil.SYSTEM_KEY,
+		Optional.ofNullable(DatabaseThreadLocalUtil.get(
+				DatabaseThreadLocalUtil.SYSTEM_KEY,
 				HashMap.class))
 				.map(m -> m.get(BaseEntity.Fields.updateUser))
 				.map(String::valueOf)
