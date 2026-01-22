@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Import;
  */
 @AutoConfiguration
 @Import({
-        MicoAppDatabaseMybatisPlusConfig.class,
-        MicoAppDatabaseRedisConfig.class
+        DatabaseMybatisPlusConfig.class,
+        DatabaseRedisConfig.class
 })
 public class DatabaseAutoConfigurationAggregator {
 }

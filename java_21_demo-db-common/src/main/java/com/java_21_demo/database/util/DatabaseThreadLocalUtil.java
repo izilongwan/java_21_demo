@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SuppressWarnings("unchecked")
-public class MicoAppDatabaseThreadLocalUtil {
+public class DatabaseThreadLocalUtil {
     public static final String SYSTEM_KEY = "__SYSTEM__";
 
     public static ThreadLocal<Map<String, Object>> pool = ThreadLocal.withInitial(HashMap::new);

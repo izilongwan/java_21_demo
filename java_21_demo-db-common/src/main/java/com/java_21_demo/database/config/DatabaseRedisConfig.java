@@ -8,7 +8,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-public class MicoAppDatabaseRedisConfig {
+public class DatabaseRedisConfig {
     @Bean
     public <K, V> RedisTemplate<K, V> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<K, V> template = new RedisTemplate<>();

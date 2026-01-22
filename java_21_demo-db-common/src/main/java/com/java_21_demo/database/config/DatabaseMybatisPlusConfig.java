@@ -16,7 +16,7 @@ import com.java_21_demo.database.entity.BaseEntity;
 import com.java_21_demo.database.util.MicoAppDatabaseThreadLocalUtil;
 
 @Configuration
-public class MicoAppDatabaseMybatisPlusConfig implements MetaObjectHandler {
+public class DatabaseMybatisPlusConfig implements MetaObjectHandler {
 	@Bean
 	public MybatisPlusInterceptor mybatisPlusInterceptor() {
 		MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
