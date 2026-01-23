@@ -9,22 +9,24 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.java_21_demo.rabbit_mq.constants.MqConstants;
+
 @Configuration
 public class WaitQueueConfig {
     @Bean
     TopicExchange waitExchange() {
-        return ExchangeBuilder.topicExchange("demo.app.exchange.wait")
+        return ExchangeBuilder.topicExchange(MqConstants.EXCHANGE_WAIT)
             .durable(true)
             .build();
     }
 
     @Bean
     Queue waitQueue() {
-        return QueueBuilder.durable("demo.app.queue.wait")
+        return QueueBuilder.durable(MqConstants.QUEUE_WAIT)
             .lazy()
             .ttl(10_000)
-            .deadLetterExchange("demo.app.exchange.deadletter")
-            .deadLetterRoutingKey("demo.app.routing.key.deadletter.#")
+            .deadLetterExchange(MqConstants.EXCHANGE_DEADLETTER)
+            .deadLetterRoutingKey(MqConstants.ROUTING_KEY_DEADLETTER)
             .build();
     }
 
@@ -32,6 +34,6 @@ public class WaitQueueConfig {
     Binding bindQueue() {
         return BindingBuilder.bind(waitQueue())
             .to(waitExchange())
-            .with("demo.app.routing.key.wait");
+            .with(MqConstants.ROUTING_KEY_WAIT);
     }
 }
