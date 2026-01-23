@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.java_21_demo.database.entity.BaseEntity;
 import com.java_21_demo.database.util.DatabaseThreadLocalUtil;
@@ -20,8 +21,10 @@ public class DatabaseMybatisPlusConfig implements MetaObjectHandler {
 	@Bean
 	public MybatisPlusInterceptor mybatisPlusInterceptor() {
 		MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
-
+		// 分页插件 (必须指定数据库类型)
 		mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+		// 乐观锁插件 (对应实体类加 @Version 注解)
+		mybatisPlusInterceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
 
 		return mybatisPlusInterceptor;
 	}

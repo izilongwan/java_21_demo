@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
-// @SpringBootTest
 class AppApplicationTests {
 
 	@Test
