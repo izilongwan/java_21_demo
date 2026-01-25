@@ -31,6 +31,9 @@ spring:
                     - data-id: mq-property.yml
                       group: DEFAULT_GROUP
                       refresh: true
+                    - data-id: xxl-job.yml
+                      group: DEFAULT_GROUP
+                      refresh: true
                 extension-configs:
                     - data-id: do.yml
                       group: DEFAULT_GROUP

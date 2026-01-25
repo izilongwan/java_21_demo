@@ -47,6 +47,7 @@
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
 		<feign-hc5.version>13.1</feign-hc5.version>
+		<xxl-job.version>2.4.1</xxl-job.version>
 
 		<!-- Project versions -->
 		<common-snapshot.version>0.0.1-SNAPSHOT</common-snapshot.version>
@@ -151,6 +152,12 @@
 				<groupId>io.github.openfeign</groupId>
 				<artifactId>feign-hc5</artifactId>
 				<version>${feign-hc5.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.xuxueli</groupId>
+				<artifactId>xxl-job-core</artifactId>
+				<version>${xxl-job.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
